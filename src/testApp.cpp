@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    dots.init(50, ofGetWidth() / 2, 100);
+    dots.init(70, ofGetWidth() / 2, 20);
     cam.enableMouseInput();
 }
 

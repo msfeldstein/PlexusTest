@@ -8,6 +8,8 @@
 
 #include "Dots.h"
 
+int plexusDistance = 100;
+
 void Dots::init(int nParticles, float positionDispersion, float velocityDispersion) {
     ofSeedRandom();
 	//
@@ -34,16 +36,23 @@ void Dots::init(int nParticles, float positionDispersion, float velocityDispersi
 struct Pair {
     Dots::Particle p1;
     Dots::Particle p2;
+    float distance;
 };
 
 void Dots::update() {
     for(unsigned int i = 0; i < particles.size(); i++){
-        Particle p = particles.at(i);
-        p.position += p.velocity;
+        float dt = ofGetLastFrameTime();
+        particles[i].position += particles[i].velocity * dt;
     }
 }
 
+float roff() {
+    float randomness = 5.0f;
+    return ofRandom(randomness) - randomness / 2.0f;
+}
+
 void Dots::draw() {
+    ofSetColor(255,255,255);
     ofPushMatrix();
     ofTranslate(getPosition().x, getPosition().y);
     
@@ -54,10 +63,12 @@ void Dots::draw() {
         ofDrawSphere(p.position, 10);
         for (unsigned int j = i + 1; j < particles.size(); j++) {
             Particle p2 = particles.at(j);
-            if (ofDist(p.position.x, p.position.y, p2.position.x, p2.position.y) < 100) {
+            float dist = p.position.distance(p2.position);
+            if (dist < plexusDistance) {
                 Pair l;
                 l.p1 = p;
                 l.p2 = p2;
+                l.distance = dist;
                 lines.push_back(l);
             }
         }
@@ -66,7 +77,7 @@ void Dots::draw() {
         Pair p = lines.at(i);
         ofVec3f p1 = p.p1.position;
         ofVec3f p2 = p.p2.position;
-        
+        ofSetColor(255, 255, 255, 255 * (plexusDistance - fabs(p.distance)));
         ofLine(p1, p2);
         
     }
