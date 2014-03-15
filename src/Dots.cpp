@@ -11,6 +11,7 @@
 int plexusDistance = 100;
 
 void Dots::init(int nParticles, float positionDispersion, float velocityDispersion) {
+    particles.empty();
     ofSeedRandom();
 	//
 	ofVec3f position, velocity;
