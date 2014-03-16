@@ -22,6 +22,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    ofDisableAlphaBlending();
     ofBackgroundGradient(ofColor(0,0,0), ofColor(90,90,90));
     cam.begin();
     ofEnableLighting();
@@ -35,6 +36,14 @@ void testApp::draw(){
 void testApp::keyPressed(int key){
     if (key == 'r') {
         dots.init(70, ofGetWidth() / 2, 20);
+    } else if (key == 'l') {
+        dots.drawLines = !dots.drawLines;
+    } else if (key == 't') {
+        dots.drawTriangles = !dots.drawTriangles;
+    } else if (key == 'd') {
+        dots.drawDots = !dots.drawDots;
+    } else if (key >= 49 && key <= 57) {
+        dots.init((key - 48) * 30, ofGetWidth() / 2, 20);
     }
 }
 

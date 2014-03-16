@@ -10,6 +10,12 @@
 
 int plexusDistance = 100;
 
+Dots::Dots() {
+    drawDots = true;
+    drawLines = true;
+    drawTriangles = true;
+}
+
 void Dots::init(int nParticles, float positionDispersion, float velocityDispersion) {
     particles.clear();
     ofSeedRandom();
@@ -78,29 +84,51 @@ void Dots::draw() {
     ofEnableBlendMode(OF_BLENDMODE_ADD);
     ofTranslate(getPosition().x, getPosition().y);
     
-    // Draw the lines
-    for(unsigned int i = 0; i < particles.size(); i++){
-        for (unsigned int j = 0; j < particles[i].neighbors.size(); ++j) {
-            ofVec3f p1 = particles[i].position;
-            ofVec3f p2 = particles[i].neighbors.at(j)->position;
-            float distance = p1.distance(p2);
-            ofSetColor(255, 255, 255, 200* (plexusDistance - fabs(distance)));
-            ofLine(p1, p2);
+    if (drawLines) {
+        // Draw the lines
+        for(unsigned int i = 0; i < particles.size(); i++){
+            for (unsigned int j = 0; j < particles[i].neighbors.size(); ++j) {
+                ofVec3f p1 = particles[i].position;
+                ofVec3f p2 = particles[i].neighbors.at(j)->position;
+                float distance = p1.distance(p2);
+                ofSetColor(255, 255, 255, 200* (plexusDistance - fabs(distance)));
+                ofLine(p1, p2);
 
+            }
         }
     }
     
-    // Draw the triangles
-    
-    
-    // Draw the spheres
-    ofEnableDepthTest();
-    ofDisableAlphaBlending();
-    ofSetColor(255,255,255);
-    for(unsigned int i = 0; i < particles.size(); i++){
-        Particle p = particles.at(i);
-        ofDrawSphere(p.position, 5);
+    if (drawTriangles) {
+        // Draw the triangles
+        for(unsigned int i = 0; i < particles.size(); i++){
+            for (unsigned int j = 0; j < particles[i].neighbors.size(); ++j) {
+                Particle* firstNeighbor = particles[i].neighbors.at(j);
+                for (unsigned int k = 0; k < j; ++k) {
+                    Particle* secondNeighbor = particles[i].neighbors.at(k);
+                    for (unsigned int l = 0; l < secondNeighbor->neighbors.size(); l++) {
+                        if (secondNeighbor->neighbors.at(l) == firstNeighbor) {
+                            // Match!
+                            float d1 = particles[i].position.distance(firstNeighbor->position);
+                            float d2 = particles[i].position.distance(secondNeighbor->position);
+                            float d3 = firstNeighbor->position.distance(secondNeighbor->position);
+                            float largestDistance = max(d1, max(d2,d3));
+                            ofSetColor(255, 255, 255, 100 - largestDistance);
+                            ofTriangle(particles[i].position, firstNeighbor->position, secondNeighbor->position);
+                        }
+                    }
+                }
             }
+        }
+    }
+    
+    if (drawDots) {
+        // Draw the spheres
+        ofSetColor(255,255,255);
+        for(unsigned int i = 0; i < particles.size(); i++){
+            Particle p = particles.at(i);
+            ofDrawSphere(p.position, 5);
+        }
+    }
 
     ofPopMatrix();
 }
