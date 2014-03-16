@@ -20,19 +20,13 @@ public:
     struct Particle {
 		ofVec3f position;
 		ofVec3f velocity;
+        vector<Particle*> neighbors;
 	};
-    
-    struct Pair {
-        Dots::Particle p1;
-        Dots::Particle p2;
-        float distance;
-    };
 
     void init(int nParticles, float positionDispersion, float velocityDispersion);
     void draw();
     void update();
     vector<Particle> particles;
-    vector<Pair> lines;
     void attract(Particle& p, Particle& p2);
     float attraction;
     

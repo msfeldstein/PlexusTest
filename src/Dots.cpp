@@ -38,7 +38,9 @@ void Dots::init(int nParticles, float positionDispersion, float velocityDispersi
 
 
 void Dots::update() {
-    lines.clear();
+    for(unsigned int i = 0; i < particles.size(); i++){
+        particles[i].neighbors.clear();
+    }
     for(unsigned int i = 0; i < particles.size(); i++){
         float dt = ofGetLastFrameTime();
         particles[i].position += particles[i].velocity * dt;
@@ -46,11 +48,7 @@ void Dots::update() {
         for (unsigned int j = i + 1; j < particles.size(); j++) {
             float dist = particles[i].position.distance(particles[j].position);
             if (dist < plexusDistance) {
-                Pair l;
-                l.p1 = particles[i];
-                l.p2 = particles[j];
-                l.distance = dist;
-                lines.push_back(l);
+                particles[i].neighbors.push_back(&particles[j]);
                 attract(particles[i], particles[j]);
             }
         }
@@ -79,14 +77,23 @@ void Dots::draw() {
     ofEnableAlphaBlending();
     ofEnableBlendMode(OF_BLENDMODE_ADD);
     ofTranslate(getPosition().x, getPosition().y);
-    for (unsigned int i = 0; i < lines.size(); ++i) {
-        Pair p = lines.at(i);
-        ofVec3f p1 = p.p1.position;
-        ofVec3f p2 = p.p2.position;
-        ofSetColor(255, 255, 255, 200* (plexusDistance - fabs(p.distance)));
-        ofLine(p1, p2);
-        
+    
+    // Draw the lines
+    for(unsigned int i = 0; i < particles.size(); i++){
+        for (unsigned int j = 0; j < particles[i].neighbors.size(); ++j) {
+            ofVec3f p1 = particles[i].position;
+            ofVec3f p2 = particles[i].neighbors.at(j)->position;
+            float distance = p1.distance(p2);
+            ofSetColor(255, 255, 255, 200* (plexusDistance - fabs(distance)));
+            ofLine(p1, p2);
+
+        }
     }
+    
+    // Draw the triangles
+    
+    
+    // Draw the spheres
     ofEnableDepthTest();
     ofDisableAlphaBlending();
     ofSetColor(255,255,255);
