@@ -91,7 +91,7 @@ void Dots::draw() {
                 ofVec3f p1 = particles[i].position;
                 ofVec3f p2 = particles[i].neighbors.at(j)->position;
                 float distance = p1.distance(p2);
-                ofSetColor(255, 255, 255, 200* (plexusDistance - fabs(distance)));
+                ofSetColor(255, 255, 255, 200 - fabs(distance) * 2);
                 ofLine(p1, p2);
 
             }
@@ -126,7 +126,7 @@ void Dots::draw() {
         ofSetColor(255,255,255);
         for(unsigned int i = 0; i < particles.size(); i++){
             Particle p = particles.at(i);
-            ofDrawSphere(p.position, 5);
+            ofDrawSphere(p.position, 2);
         }
     }
 

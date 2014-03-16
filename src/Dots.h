@@ -28,6 +28,7 @@ public:
     vector<Particle> particles;
     void attract(Particle& p, Particle& p2);
     float attraction;
+    ofMaterial mat;
     
     bool drawDots;
     bool drawTriangles;
