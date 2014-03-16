@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>53BEE548-D5FA-47C7-B95D-16F8A56F9883</string>
+	<key>IDESourceControlProjectName</key>
+	<string>plexusTest</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>99184543-F410-41D6-8B3E-4BA18C836C1A</key>
+		<string>ssh://github.com/msfeldstein/PlexusTest.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>plexusTest.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>99184543-F410-41D6-8B3E-4BA18C836C1A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/msfeldstein/PlexusTest.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>99184543-F410-41D6-8B3E-4BA18C836C1A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>99184543-F410-41D6-8B3E-4BA18C836C1A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>plexusTest</string>
+		</dict>
+	</array>
+</dict>
+</plist>

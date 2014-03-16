@@ -2,8 +2,9 @@
 
 #include "ofMain.h"
 #include "Dots.h"
+#include "ofxMidi.h"
 
-class testApp : public ofBaseApp{
+class testApp : public ofBaseApp, public ofxMidiListener {
 
 	public:
 		void setup();
@@ -19,7 +20,9 @@ class testApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+        void newMidiMessage(ofxMidiMessage& eventArgs);
     ofLight light;
     Dots dots;
     ofEasyCam cam;
+    ofxMidiIn midiIn;
 };
